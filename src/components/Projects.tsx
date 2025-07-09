@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Projects() {
     const [activeCategory, setActiveCategory] = useState('all');
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -122,25 +124,32 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-20 transition-opacity duration-1000 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'
-                }`}
+            className={`min-h-screen py-20 transition-all duration-1000 ${theme === 'dark'
+                    ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
+                    : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+                } ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}
         >
             <div className="container mx-auto px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className={`text-center mb-16 transition-all duration-700 delay-200 ${isVisible ? 'animate-slideInDown' : 'opacity-0 -translate-y-10'
                         }`}>
-                        <div className="inline-flex items-center px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm font-medium mb-8 backdrop-blur-sm animate-pulse-glow">
+                        <div className={`inline-flex items-center px-4 py-2 border rounded-full text-sm font-medium mb-8 backdrop-blur-sm animate-pulse-glow ${theme === 'dark'
+                                ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400'
+                                : 'bg-cyan-50 border-cyan-200 text-cyan-600'
+                            }`}>
                             <span className="w-2 h-2 bg-cyan-400 rounded-full mr-2"></span>
                             My Work
                         </div>
-                        <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                        <h2 className={`text-4xl lg:text-6xl font-bold mb-6 leading-tight transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                            }`}>
                             Featured
                             <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-400 bg-clip-text text-transparent pb-2">
                                 Projects
                             </span>
                         </h2>
-                        <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                        <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                            }`}>
                             A collection of projects I've built using modern technologies like React, Angular, and Next.js.
                             Each project demonstrates my skills in creating user-friendly, responsive web applications.
                         </p>
@@ -155,7 +164,10 @@ export default function Projects() {
                                 onClick={() => setActiveCategory(category.id)}
                                 className={`cursor-pointer px-6 py-3 rounded-full font-medium transition-all duration-300 hover:animate-bounceSubtle ${activeCategory === category.id
                                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25 animate-glow'
-                                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white border border-slate-700/50'
+                                    : (theme === 'dark'
+                                        ? 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white border border-slate-700/50'
+                                        : 'bg-gray-100/50 text-gray-600 hover:bg-gray-200/50 hover:text-gray-900 border border-gray-200/50'
+                                    )
                                     }`}
                             >
                                 {category.name}
@@ -171,8 +183,10 @@ export default function Projects() {
                             <div
                                 key={project.id}
                                 style={{ animationDelay: `${index * 100}ms` }}
-                                className={`group relative bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300
-                                    ${project.featured ? 'ring-2 ring-cyan-500/20' : ''} 
+                                className={`group relative backdrop-blur-sm border rounded-2xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300 ${theme === 'dark'
+                                        ? 'bg-slate-800/50 border-slate-700/50'
+                                        : 'bg-white/80 border-gray-200/50'
+                                    } ${project.featured ? 'ring-2 ring-cyan-500/20' : ''} 
                                     ${isVisible ? 'animate-staggerFadeIn' : 'opacity-0'}
                                     hover:animate-hoverFloat hover:shadow-2xl hover:shadow-cyan-500/20
                                 `}
@@ -183,9 +197,16 @@ export default function Projects() {
                                         Featured
                                     </div>
                                 )}                                {/* Project Image */}
-                                <div className="relative h-48 bg-gradient-to-br from-slate-700 to-slate-800 overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
-                                    <div className="flex items-center justify-center h-full text-slate-400">
+                                <div className={`relative h-48 overflow-hidden ${theme === 'dark'
+                                        ? 'bg-gradient-to-br from-slate-700 to-slate-800'
+                                        : 'bg-gradient-to-br from-gray-200 to-gray-300'
+                                    }`}>
+                                    <div className={`absolute inset-0 ${theme === 'dark'
+                                            ? 'bg-gradient-to-t from-slate-900/50 to-transparent'
+                                            : 'bg-gradient-to-t from-gray-100/50 to-transparent'
+                                        }`}></div>
+                                    <div className={`flex items-center justify-center h-full ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
+                                        }`}>
                                         <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
                                             <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                                         </svg>
@@ -194,10 +215,12 @@ export default function Projects() {
 
                                 {/* Project Info */}
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300 group-hover:animate-textGlow">
+                                    <h3 className={`text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors duration-300 group-hover:animate-textGlow ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                        }`}>
                                         {project.title}
                                     </h3>
-                                    <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                    <p className={`text-sm leading-relaxed mb-4 transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                                        }`}>
                                         {project.description}
                                     </p>
 
@@ -222,11 +245,19 @@ export default function Projects() {
                     {/* Call to Action */}
                     <div className={`text-center mt-16 transition-all duration-700 delay-800 ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'
                         }`}>
-                        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 max-w-2xl mx-auto hover:animate-hoverFloat transition-all duration-300">
-                            <h3 className="text-2xl font-bold text-white mb-4">
+                        <div className={`backdrop-blur-sm border rounded-2xl p-8 max-w-2xl mx-auto hover:animate-hoverFloat transition-all duration-300 ${
+                            theme === 'dark'
+                                ? 'bg-slate-800/50 border-slate-700/50'
+                                : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
+                        }`}>
+                            <h3 className={`text-2xl font-bold mb-4 transition-colors duration-300 ${
+                                theme === 'dark' ? 'text-white' : 'text-gray-900'
+                            }`}>
                                 Interested in working together?
                             </h3>
-                            <p className="text-slate-300 mb-6">
+                            <p className={`mb-6 transition-colors duration-300 ${
+                                theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                            }`}>
                                 I'm always open to discussing new opportunities and exciting projects.
                                 Let's create something amazing together!
                             </p>

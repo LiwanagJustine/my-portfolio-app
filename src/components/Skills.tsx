@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Skills() {
     const [activeCategory, setActiveCategory] = useState<'frontend' | 'tools' | 'concepts'>('frontend');
     const [isVisible, setIsVisible] = useState(false);
     const [progressAnimated, setProgressAnimated] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -85,25 +87,32 @@ export default function Skills() {
         <section
             ref={sectionRef}
             id="skills"
-            className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-20 transition-opacity duration-1000 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'
-                }`}
+            className={`min-h-screen py-20 transition-all duration-1000 ${theme === 'dark'
+                    ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
+                    : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+                } ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}
         >
             <div className="container mx-auto px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className={`text-center mb-16 transition-all duration-700 delay-200 ${isVisible ? 'animate-slideInDown' : 'opacity-0 -translate-y-10'
                         }`}>
-                        <div className="inline-flex items-center px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full text-green-400 text-sm font-medium mb-8 backdrop-blur-sm animate-pulse-glow">
+                        <div className={`inline-flex items-center px-4 py-2 border rounded-full text-sm font-medium mb-8 backdrop-blur-sm animate-pulse-glow ${theme === 'dark'
+                                ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                                : 'bg-green-50 border-green-200 text-green-600'
+                            }`}>
                             <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
                             Technical Expertise
                         </div>
-                        <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                        <h2 className={`text-4xl lg:text-6xl font-bold mb-6 leading-tight transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                            }`}>
                             My
                             <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-400 bg-clip-text text-transparent pb-2">
                                 Skills & Expertise
                             </span>
                         </h2>
-                        <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                        <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                            }`}>
                             A comprehensive overview of my technical skills, tools, and expertise in modern web development.
                             I'm constantly learning and staying up-to-date with the latest technologies.
                         </p>
@@ -118,7 +127,10 @@ export default function Skills() {
                                 onClick={() => setActiveCategory(category)}
                                 className={`cursor-pointer px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center space-x-2 hover:animate-bounceSubtle ${activeCategory === category
                                     ? 'bg-gradient-to-r from-green-500 to-blue-600 text-white shadow-lg shadow-green-500/25 animate-glow'
-                                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white border border-slate-700/50'
+                                    : (theme === 'dark'
+                                        ? 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white border border-slate-700/50'
+                                        : 'bg-gray-100/50 text-gray-600 hover:bg-gray-200/50 hover:text-gray-900 border border-gray-200/50'
+                                    )
                                     }`}
                             >
                                 <span className="text-lg">{skillCategories[category].icon}</span>
@@ -128,14 +140,18 @@ export default function Skills() {
                     </div>
 
                     {/* Skills Grid */}
-                    <div className={`bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-8 lg:p-12 transition-all duration-700 delay-600 ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'
-                        }`}>
+                    <div className={`backdrop-blur-sm border rounded-3xl p-8 lg:p-12 transition-all duration-700 delay-600 ${theme === 'dark'
+                            ? 'bg-slate-800/30 border-slate-700/50'
+                            : 'bg-white/80 border-gray-200/50'
+                        } ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'}`}>
                         <div className="mb-8">
-                            <h3 className="text-3xl font-bold text-white mb-2 flex items-center">
+                            <h3 className={`text-3xl font-bold mb-2 flex items-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                }`}>
                                 <span className="text-3xl mr-3 animate-bounce">{skillCategories[activeCategory].icon}</span>
                                 {skillCategories[activeCategory].title}
                             </h3>
-                            <p className="text-slate-400">
+                            <p className={`transition-colors duration-300 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-600'
+                                }`}>
                                 Click on any skill below to see more details about my experience and proficiency level.
                             </p>
                         </div>
@@ -145,17 +161,21 @@ export default function Skills() {
                                 <div
                                     key={skill.name}
                                     style={{ animationDelay: `${index * 100}ms` }}
-                                    className={`group bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 hover:border-slate-600/50 transition-all duration-300 hover:transform hover:scale-[1.02]
-                                        ${isVisible ? 'animate-staggerFadeIn' : 'opacity-0'}
-                                        hover:animate-hoverFloat hover:shadow-lg hover:shadow-green-500/20
-                                    `}
+                                    className={`group border rounded-2xl p-6 transition-all duration-300 hover:transform hover:scale-[1.02] ${theme === 'dark'
+                                            ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50 hover:shadow-lg hover:shadow-green-500/20'
+                                            : 'bg-white/80 border-gray-200/50 hover:border-gray-300/50 hover:shadow-lg hover:shadow-green-500/10'
+                                        } ${isVisible ? 'animate-staggerFadeIn' : 'opacity-0'} hover:animate-hoverFloat`}
                                 >
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex items-center space-x-3">
-                                            <h4 className="text-lg font-semibold text-white group-hover:text-green-400 transition-colors duration-300 group-hover:animate-textGlow">
+                                            <h4 className={`text-lg font-semibold group-hover:text-green-400 transition-colors duration-300 group-hover:animate-textGlow ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                                }`}>
                                                 {skill.name}
                                             </h4>
-                                            <span className="text-xs text-slate-400 bg-slate-700/50 px-2 py-1 rounded-full group-hover:animate-bounceSubtle">
+                                            <span className={`text-xs px-2 py-1 rounded-full group-hover:animate-bounceSubtle ${theme === 'dark'
+                                                    ? 'text-slate-400 bg-slate-700/50'
+                                                    : 'text-gray-500 bg-gray-100/50'
+                                                }`}>
                                                 {skill.years}
                                             </span>
                                         </div>
@@ -163,7 +183,8 @@ export default function Skills() {
                                             <div className="text-sm font-medium text-green-400 group-hover:animate-pulse">
                                                 {skill.level}%
                                             </div>
-                                            <div className="text-xs text-slate-400">
+                                            <div className={`text-xs transition-colors duration-300 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
+                                                }`}>
                                                 {getSkillDescription(skill.level)}
                                             </div>
                                         </div>
@@ -171,7 +192,8 @@ export default function Skills() {
 
                                     {/* Progress Bar */}
                                     <div className="relative">
-                                        <div className="w-full bg-slate-700/50 rounded-full h-3 overflow-hidden">
+                                        <div className={`w-full rounded-full h-3 overflow-hidden ${theme === 'dark' ? 'bg-slate-700/50' : 'bg-gray-200/50'
+                                            }`}>
                                             <div
                                                 className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out relative overflow-hidden ${progressAnimated ? '' : 'w-0'
                                                     }`}
@@ -190,32 +212,47 @@ export default function Skills() {
                     {/* Skills Summary */}
                     <div className={`mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-700 delay-800 ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'
                         }`}>
-                        <div className="text-center bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-blue-500/20">
+                        <div className={`text-center backdrop-blur-sm border rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer ${theme === 'dark'
+                                ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-blue-500/20'
+                                : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-blue-500/10'
+                            }`}>
                             <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce">
                                 <span className="text-2xl">⚡</span>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2 hover:animate-textGlow">Fast Learner</h3>
-                            <p className="text-slate-300 text-sm">
+                            <h3 className={`text-xl font-bold mb-2 hover:animate-textGlow transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                }`}>Fast Learner</h3>
+                            <p className={`text-sm transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                                }`}>
                                 Quickly adapt to new technologies and frameworks with a strong foundation in core web development principles.
                             </p>
                         </div>
 
-                        <div className="text-center bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-green-500/20">
+                        <div className={`text-center backdrop-blur-sm border rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer ${theme === 'dark'
+                                ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-green-500/20'
+                                : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-green-500/10'
+                            }`}>
                             <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce" style={{ animationDelay: '200ms' }}>
                                 <span className="text-2xl">🎯</span>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2 hover:animate-textGlow">Detail Oriented</h3>
-                            <p className="text-slate-300 text-sm">
+                            <h3 className={`text-xl font-bold mb-2 hover:animate-textGlow transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                }`}>Detail Oriented</h3>
+                            <p className={`text-sm transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                                }`}>
                                 Focus on writing clean, maintainable code with attention to performance, accessibility, and user experience.
                             </p>
                         </div>
 
-                        <div className="text-center bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-purple-500/20">
+                        <div className={`text-center backdrop-blur-sm border rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer ${theme === 'dark'
+                                ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-purple-500/20'
+                                : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-purple-500/10'
+                            }`}>
                             <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce" style={{ animationDelay: '400ms' }}>
                                 <span className="text-2xl">🚀</span>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2 hover:animate-textGlow">Always Growing</h3>
-                            <p className="text-slate-300 text-sm">
+                            <h3 className={`text-xl font-bold mb-2 hover:animate-textGlow transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                }`}>Always Growing</h3>
+                            <p className={`text-sm transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                                }`}>
                                 Continuously learning new technologies and best practices to stay current with industry trends and standards.
                             </p>
                         </div>

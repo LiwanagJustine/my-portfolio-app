@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+/* Theme variables */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --border-color: rgba(148, 163, 184, 0.2);
+  --scrollbar-track: #1e293b;
+  --scrollbar-thumb: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  --scrollbar-thumb-hover: linear-gradient(to bottom, #2563eb, #7c3aed);
+}
+
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: rgba(107, 114, 128, 0.2);
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  --scrollbar-thumb-hover: linear-gradient(to bottom, #2563eb, #7c3aed);
+}
+
 /* Smooth scroll behavior */
 html {
     scroll-behavior: smooth;
@@ -49,6 +72,10 @@ section {
     z-index: 40;
 }
 
+[data-theme="light"] .nav-transition {
+    background: linear-gradient(45deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+}
+
 .nav-transition.active {
     opacity: 1;
 }
@@ -73,16 +100,16 @@ section {
 }
 
 ::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    background: var(--scrollbar-thumb);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #2563eb, #7c3aed);
+    background: var(--scrollbar-thumb-hover);
 }
 
 /* Component fade-in animations */
