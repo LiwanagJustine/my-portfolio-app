@@ -389,6 +389,29 @@ iframe[src*="google.com/maps"] {
     max-width: 100%;
     height: auto;
     min-height: 300px;
+    /* Force hardware acceleration */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    /* Improve rendering */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Ensure proper display */
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Force iframe to be visible - helps with some hardware/driver issues */
+iframe[src*="google.com/maps"]:not([style*="display: none"]) {
+    display: block !important;
+}
+
+/* Fallback for iframe rendering issues */
+.map-container {
+    position: relative;
+    overflow: hidden;
+    /* Force GPU acceleration */
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 /* Ensure iframe loads properly */

@@ -19,8 +19,10 @@ export default function Contact() {
     const [animatedInputs, setAnimatedInputs] = useState<Set<string>>(new Set());
     const [mapLoaded, setMapLoaded] = useState(false);
     const [mapError, setMapError] = useState(false);
+    const [showFallback, setShowFallback] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const sectionRef = useRef<HTMLElement>(null);
+    const mapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const { theme } = useTheme();
 
     const EMAILJS_SERVICE_ID = 'service_tzg9ieg';
@@ -64,6 +66,22 @@ export default function Contact() {
             return () => clearTimeout(timer);
         }
     }, [submitStatus]);
+
+    // Map loading timeout - show fallback after 5 seconds if map hasn't loaded
+    useEffect(() => {
+        mapTimeoutRef.current = setTimeout(() => {
+            if (!mapLoaded && !mapError) {
+                console.log('Map loading timeout - showing fallback');
+                setShowFallback(true);
+            }
+        }, 5000); // 5 seconds timeout
+
+        return () => {
+            if (mapTimeoutRef.current) {
+                clearTimeout(mapTimeoutRef.current);
+            }
+        };
+    }, [mapLoaded, mapError]);
 
     const handleInputFocus = (fieldName: string) => {
         setAnimatedInputs(prev => new Set([...prev, fieldName]));
@@ -452,44 +470,78 @@ export default function Contact() {
                                     Find Me Here
                                 </h3>
 
-                                <div className={`relative rounded-2xl overflow-hidden border ${theme === 'dark' ? 'border-slate-600/50' : 'border-gray-300/50'
+                                <div className={`relative rounded-2xl overflow-hidden border map-container ${theme === 'dark' ? 'border-slate-600/50' : 'border-gray-300/50'
                                     }`}>
-                                    <div className="relative">
-                                        {!mapError && (
-                                            <iframe
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7712.208589375982!2d120.77601846708724!3d14.875445442336911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396513f1bf09655%3A0xf5be7b26d11bb5cf!2sLongos%2C%20Calumpit%2C%20Bulacan!5e0!3m2!1sen!2sph!4v1751986120195!5m2!1sen!2sph"
-                                                width="100%"
-                                                height="300"
-                                                style={{ border: 0 }}
-                                                allowFullScreen
-                                                loading="lazy"
-                                                referrerPolicy="no-referrer-when-downgrade"
-                                                className="filter grayscale hover:grayscale-0 transition-all duration-500"
-                                                title="Google Maps - Longos, Calumpit, Bulacan"
-                                                onLoad={() => setMapLoaded(true)}
-                                                onError={() => setMapError(true)}
-                                            />
-                                        )}
-                                        {/* Fallback content - always show if mapError is true, or if map hasn't loaded yet */}
-                                        {(mapError || !mapLoaded) && (
-                                            <div className={`${mapError ? 'relative' : 'absolute inset-0'} flex items-center justify-center ${theme === 'dark'
+                                    <div className="relative min-h-[300px]">
+                                        {/* Always try to load the iframe first */}
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7712.208589375982!2d120.77601846708724!3d14.875445442336911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396513f1bf09655%3A0xf5be7b26d11bb5cf!2sLongos%2C%20Calumpit%2C%20Bulacan!5e0!3m2!1sen!2sph!4v1751986120195!5m2!1sen!2sph"
+                                            width="100%"
+                                            height="300"
+                                            style={{
+                                                border: 0,
+                                                position: 'relative',
+                                                zIndex: 1,
+                                                display: (mapError || showFallback) ? 'none' : 'block'
+                                            }}
+                                            allowFullScreen
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                            className="filter grayscale hover:grayscale-0 transition-all duration-500"
+                                            title="Google Maps - Longos, Calumpit, Bulacan"
+                                            onLoad={() => {
+                                                console.log('Map loaded successfully');
+                                                setMapLoaded(true);
+                                                if (mapTimeoutRef.current) {
+                                                    clearTimeout(mapTimeoutRef.current);
+                                                }
+                                            }}
+                                            onError={() => {
+                                                console.log('Map failed to load');
+                                                setMapError(true);
+                                                if (mapTimeoutRef.current) {
+                                                    clearTimeout(mapTimeoutRef.current);
+                                                }
+                                            }}
+                                        />
+
+                                        {/* Fallback content - show if error, timeout, or loading */}
+                                        {(mapError || showFallback || !mapLoaded) && (
+                                            <div className={`absolute inset-0 flex items-center justify-center ${theme === 'dark'
                                                 ? 'bg-gradient-to-br from-slate-700 to-slate-800'
                                                 : 'bg-gradient-to-br from-gray-200 to-gray-300'
-                                                } ${mapError ? 'min-h-[300px]' : ''} transition-opacity duration-500`}>
+                                                } transition-opacity duration-500`}
+                                                style={{ zIndex: 2 }}>
                                                 <div className="text-center p-8">
                                                     <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${theme === 'dark'
                                                         ? 'bg-slate-600/50'
                                                         : 'bg-gray-300/50'
                                                         }`}>
-                                                        <svg className={`w-8 h-8 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                                                        </svg>
+                                                        {!mapError && !showFallback ? (
+                                                            // Loading spinner
+                                                            <svg className={`w-8 h-8 animate-spin ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24">
+                                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                            </svg>
+                                                        ) : (
+                                                            // Location icon
+                                                            <svg className={`w-8 h-8 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                                                            </svg>
+                                                        )}
                                                     </div>
                                                     <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-700'}`}>
-                                                        {mapError ? 'Map Location' : 'Loading Map...'}
+                                                        {mapError ? 'Map Unavailable' :
+                                                            showFallback ? 'Map Loading Issue' :
+                                                                'Loading Map...'}
                                                     </h4>
                                                     <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-600'}`}>
-                                                        Longos, Calumpit, Bulacan, Philippines
+                                                        {mapError ? 'Unable to load Google Maps on this device' :
+                                                            showFallback ? 'Map is taking longer than expected to load' :
+                                                                'Please wait while the map loads...'}
+                                                    </p>
+                                                    <p className={`text-sm mb-4 font-medium ${theme === 'dark' ? 'text-slate-300' : 'text-gray-700'}`}>
+                                                        📍 Longos, Calumpit, Bulacan, Philippines
                                                     </p>
                                                     <a
                                                         href="https://maps.google.com/maps?q=Longos,+Calumpit,+Bulacan,+Philippines"
@@ -498,9 +550,9 @@ export default function Contact() {
                                                         className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-cyan-700 transition-all duration-300"
                                                     >
                                                         <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM10 18a8 8 0 100-16 8 8 0 000 16z" />
+                                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
                                                         </svg>
-                                                        View on Google Maps
+                                                        Open in Google Maps
                                                     </a>
                                                 </div>
                                             </div>
