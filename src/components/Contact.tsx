@@ -209,7 +209,7 @@ export default function Contact() {
                         </div>
                         <h2 className={`text-4xl lg:text-6xl font-bold mb-6 leading-tight transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
-                            Let's Work
+                            Let&apos;s Work
                             <span className="block bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent pb-2">
                                 Together
                             </span>
@@ -275,8 +275,8 @@ export default function Contact() {
                                                 onFocus={() => handleInputFocus('email')}
                                                 required
                                                 className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-300 hover:border-pink-400/30 ${theme === 'dark'
-                                                        ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400'
-                                                        : 'bg-gray-50/50 border-gray-300/50 text-gray-900 placeholder-gray-500'
+                                                    ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400'
+                                                    : 'bg-gray-50/50 border-gray-300/50 text-gray-900 placeholder-gray-500'
                                                     }`}
                                                 placeholder="your@email.com"
                                             />
@@ -298,8 +298,8 @@ export default function Contact() {
                                             onFocus={() => handleInputFocus('subject')}
                                             required
                                             className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-300 hover:border-pink-400/30 ${theme === 'dark'
-                                                    ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400'
-                                                    : 'bg-gray-50/50 border-gray-300/50 text-gray-900 placeholder-gray-500'
+                                                ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400'
+                                                : 'bg-gray-50/50 border-gray-300/50 text-gray-900 placeholder-gray-500'
                                                 }`}
                                             placeholder="Project inquiry, collaboration, etc."
                                         />
@@ -320,8 +320,8 @@ export default function Contact() {
                                             required
                                             rows={6}
                                             className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-300 resize-none hover:border-pink-400/30 ${theme === 'dark'
-                                                    ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400'
-                                                    : 'bg-gray-50/50 border-gray-300/50 text-gray-900 placeholder-gray-500'
+                                                ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400'
+                                                : 'bg-gray-50/50 border-gray-300/50 text-gray-900 placeholder-gray-500'
                                                 }`}
                                             placeholder="Tell me about your project or how we can work together..."
                                         />
@@ -408,8 +408,8 @@ export default function Contact() {
                                         href={info.link}
                                         style={{ animationDelay: `${index * 100}ms` }}
                                         className={`cursor-pointer block backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 hover:transform hover:scale-[1.02] group hover:animate-hoverFloat ${theme === 'dark'
-                                                ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50 hover:shadow-lg hover:shadow-pink-500/20'
-                                                : 'bg-white/80 border-gray-200/50 hover:border-gray-300/50 hover:shadow-lg hover:shadow-pink-500/10'
+                                            ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50 hover:shadow-lg hover:shadow-pink-500/20'
+                                            : 'bg-white/80 border-gray-200/50 hover:border-gray-300/50 hover:shadow-lg hover:shadow-pink-500/10'
                                             } ${isVisible ? 'animate-staggerFadeIn' : 'opacity-0'}`}
                                     >
                                         <div className="flex items-center space-x-4">
@@ -436,8 +436,8 @@ export default function Contact() {
                         <div className={`space-y-8 transition-all duration-700 delay-600 ${isVisible ? 'animate-slideInRight' : 'opacity-0 translate-x-10'
                             }`}>
                             <div className={`backdrop-blur-sm border rounded-3xl p-8 hover:animate-hoverFloat transition-all duration-300 ${theme === 'dark'
-                                    ? 'bg-slate-800/50 border-slate-700/50'
-                                    : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
+                                ? 'bg-slate-800/50 border-slate-700/50'
+                                : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
                                 }`}>
                                 <h3 className={`text-2xl font-bold mb-6 flex items-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                                     }`}>
@@ -463,8 +463,8 @@ export default function Contact() {
                                 </div>
 
                                 <div className={`mt-6 p-4 rounded-xl border ${theme === 'dark'
-                                        ? 'bg-slate-900/50 border-slate-600/30'
-                                        : 'bg-gray-50/50 border-gray-200/30'
+                                    ? 'bg-slate-900/50 border-slate-600/30'
+                                    : 'bg-gray-50/50 border-gray-200/30'
                                     }`}>
                                     <div className="flex items-start space-x-3">
                                         <div className="w-6 h-6 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -485,8 +485,8 @@ export default function Contact() {
 
                             {/* Availability Status */}
                             <div className={`backdrop-blur-sm border rounded-2xl p-6 ${theme === 'dark'
-                                    ? 'bg-slate-800/50 border-slate-700/50'
-                                    : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
+                                ? 'bg-slate-800/50 border-slate-700/50'
+                                : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
                                 }`}>
                                 <div className="flex items-center space-x-4">
                                     <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-xl flex items-center justify-center">
@@ -505,8 +505,8 @@ export default function Contact() {
 
                             {/* Response Time */}
                             <div className={`backdrop-blur-sm border rounded-2xl p-6 ${theme === 'dark'
-                                    ? 'bg-slate-800/50 border-slate-700/50'
-                                    : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
+                                ? 'bg-slate-800/50 border-slate-700/50'
+                                : 'bg-white/80 border-gray-200/50 shadow-lg shadow-gray-200/20'
                                 }`}>
                                 <div className="flex items-center space-x-4">
                                     <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">

@@ -165,7 +165,7 @@ export default function Projects() {
                         </h2>
                         <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
                             }`}>
-                            A collection of projects I've built using modern technologies like React, Angular, and Next.js.
+                            A collection of projects I&apos;ve built using modern technologies like React, Angular, and Next.js.
                             Each project demonstrates my skills in creating user-friendly, responsive web applications.
                         </p>
                     </div>
