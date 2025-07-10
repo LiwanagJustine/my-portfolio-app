@@ -72,16 +72,16 @@ export default function Projects() {
             id: 1,
             title: "E-Commerce Dashboard",
             description: "Modern admin dashboard for e-commerce platform with real-time analytics, inventory management, and order tracking.",
-            image: "/api/placeholder/400/300",
+            image: null,
             category: "nextjs",
             technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
-            featured: true
+            featured: false
         },
         {
             id: 2,
             title: "Risk Management App",
             description: "A clean, responsive Risk Management App built to help users track, assess, and manage risks with ease. Designed with a user-first approach, smooth UI, and real-time data visualization for better decision-making.",
-            image: "/api/placeholder/400/300",
+            image: null,
             category: "angular",
             technologies: ["Angular", "TypeScript", "Angular Material", "CSS", "HTML", "C#.Net", "PostgreSQL"],
             featured: true
@@ -90,16 +90,16 @@ export default function Projects() {
             id: 3,
             title: "Equity Management Tool",
             description: "Built intuitive and responsive user interfaces for a web-based equity management platform, enabling HR and finance teams to track, manage, and visualize employee equity plans with clarity and efficiency. Focused on clean UI design, seamless data interaction, and optimized user experience using modern frontend technologies.",
-            image: "/api/placeholder/400/300",
+            image: null,
             category: "angular",
             technologies: ["Angular", "TypeScript", "Angular Material", "HTML", "CSS", "Node.js", "PostgreSQL"],
-            featured: false
+            featured: true
         },
         {
             id: 4,
             title: "Personal Web Portfolio - React Version",
             description: "A fully responsive personal portfolio built to showcase my skills, projects, and professional background as a frontend developer. Designed with a clean and modern UI using TailwindCSS, this site introduces who I am, what I do, and how to contact me. Integrated EmailJS to allow seamless form submissions without a backend. Focused on accessibility, smooth user interactions, and mobile-first responsiveness.",
-            image: "/api/placeholder/400/300",
+            image: "/images/project/reactportfolio.png",
             category: "react",
             technologies: ["React", "Tailwind CSS", "TypeScript", "EmailJS"],
             featured: false
@@ -108,7 +108,7 @@ export default function Projects() {
             id: 5,
             title: "Personal Web Portfolio - Next.js Version",
             description: "An upgraded version of my personal portfolio using Next.js for improved performance and SEO optimization. Highlights my journey, skillset, and selected works through dynamic routing and a smooth scroll experience. The contact form is powered by EmailJS, enabling direct communication. Built with scalability and maintainability in mind, using TypeScript for type safety and Tailwind for design consistency.",
-            image: "/api/placeholder/400/300",
+            image: "/images/project/porfolio.png",
             category: "nextjs",
             technologies: ["Next.js", "TypeScript", "Tailwind CSS", "CSS Animations", "EmailJS"],
             featured: true
@@ -250,15 +250,36 @@ export default function Projects() {
                                     ? 'bg-gradient-to-br from-slate-700 to-slate-800'
                                     : 'bg-gradient-to-br from-gray-200 to-gray-300'
                                     }`}>
-                                    <div className={`absolute inset-0 ${theme === 'dark'
-                                        ? 'bg-gradient-to-t from-slate-900/50 to-transparent'
-                                        : 'bg-gradient-to-t from-gray-100/50 to-transparent'
-                                        }`}></div>
-                                    <div className={`flex items-center justify-center h-full ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
-                                        }`}>
-                                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                                        </svg>
+                                    {project.image ? (
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                                            onError={(e) => {
+                                                e.currentTarget.style.display = 'none';
+                                                const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                                                if (fallback) fallback.style.display = 'flex';
+                                            }}
+                                        />
+                                    ) : null}
+                                    <div
+                                        className={`${project.image ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center ${theme === 'dark'
+                                            ? 'bg-gradient-to-t from-slate-900/50 to-transparent'
+                                            : 'bg-gradient-to-t from-gray-100/50 to-transparent'
+                                            }`}
+                                        style={{ display: project.image ? 'none' : 'flex' }}
+                                    >
+                                        <div className="text-center">
+                                            <svg className={`w-12 h-12 mx-auto mb-2 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                                            </svg>
+                                            <p className={`text-xs ${theme === 'dark' ? 'text-slate-500' : 'text-gray-500'}`}>
+                                                Project Preview
+                                            </p>
+                                            <p className={`text-xs mt-1 ${theme === 'dark' ? 'text-slate-600' : 'text-gray-400'}`}>
+                                                Image not available due to confidentiality
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
