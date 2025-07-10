@@ -42,9 +42,9 @@ export default function Skills() {
                 { name: "Angular", level: 85, color: "from-red-400 to-red-600", years: "2+" },
                 { name: "Next.js", level: 80, color: "from-gray-700 to-gray-900", years: "1+" },
                 { name: "TypeScript", level: 85, color: "from-blue-500 to-blue-700", years: "2+" },
-                { name: "JavaScript", level: 90, color: "from-yellow-400 to-yellow-600", years: "2+" },
+                { name: "JavaScript", level: 85, color: "from-yellow-400 to-yellow-600", years: "2+" },
                 { name: "HTML5", level: 95, color: "from-orange-400 to-orange-600", years: "2+" },
-                { name: "CSS3", level: 90, color: "from-blue-400 to-blue-600", years: "2+" },
+                { name: "CSS3", level: 85, color: "from-blue-400 to-blue-600", years: "2+" },
                 { name: "Tailwind CSS", level: 85, color: "from-cyan-400 to-cyan-600", years: "1+" }
             ]
         },
@@ -56,16 +56,16 @@ export default function Skills() {
                 { name: "VS Code", level: 95, color: "from-blue-500 to-blue-700", years: "2+" },
                 { name: "Vite", level: 80, color: "from-purple-500 to-purple-700", years: "1+" },
                 { name: "npm", level: 85, color: "from-red-500 to-red-700", years: "2+" },
-                { name: "Chrome DevTools", level: 90, color: "from-green-400 to-green-600", years: "2+" },
-                { name: "Postman", level: 75, color: "from-orange-400 to-orange-600", years: "2+" }
+                { name: "Chrome DevTools", level: 85, color: "from-green-400 to-green-600", years: "2+" },
+                { name: "Postman", level: 80, color: "from-orange-400 to-orange-600", years: "2+" }
             ]
         },
         concepts: {
             title: "Core Concepts",
             icon: "💡",
             skills: [
-                { name: "Responsive Design", level: 95, color: "from-emerald-400 to-emerald-600", years: "2+" },
-                { name: "Component Architecture", level: 90, color: "from-blue-400 to-blue-600", years: "2+" },
+                { name: "Responsive Design", level: 90, color: "from-emerald-400 to-emerald-600", years: "2+" },
+                { name: "Component Architecture", level: 85, color: "from-blue-400 to-blue-600", years: "2+" },
                 { name: "State Management", level: 85, color: "from-purple-400 to-purple-600", years: "1+" },
                 { name: "API Integration", level: 80, color: "from-cyan-400 to-cyan-600", years: "1+" },
                 { name: "Performance Optimization", level: 75, color: "from-green-400 to-green-600", years: "1+" },
@@ -150,10 +150,6 @@ export default function Skills() {
                                 <span className="text-3xl mr-3 animate-bounce">{skillCategories[activeCategory].icon}</span>
                                 {skillCategories[activeCategory].title}
                             </h3>
-                            <p className={`transition-colors duration-300 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-600'
-                                }`}>
-                                Click on any skill below to see more details about my experience and proficiency level.
-                            </p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -21,7 +21,10 @@ export default function Projects() {
                     setIsVisible(false);
                 }
             },
-            { threshold: 0.2, rootMargin: '50px' }
+            {
+                threshold: window.innerWidth <= 768 ? 0.1 : 0.2, // Lower threshold for mobile
+                rootMargin: window.innerWidth <= 768 ? '20px' : '50px' // Smaller margin for mobile
+            }
         );
 
         if (sectionRef.current) {
@@ -35,6 +38,17 @@ export default function Projects() {
     useEffect(() => {
         setIsClient(true);
     }, []);
+
+    // Mobile visibility fallback - ensure projects are visible on mobile after 2 seconds
+    useEffect(() => {
+        const mobileTimer = setTimeout(() => {
+            if (window.innerWidth <= 768 && !isVisible) {
+                setIsVisible(true);
+            }
+        }, 2000); // 2 seconds fallback
+
+        return () => clearTimeout(mobileTimer);
+    }, [isVisible]);
 
     const toggleDescription = (projectId: number) => {
         setExpandedDescriptions(prev => {
@@ -142,42 +156,42 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className={`min-h-screen py-20 transition-all duration-1000 ${theme === 'dark'
+            className={`min-h-screen py-12 sm:py-16 md:py-20 transition-all duration-1000 ${theme === 'dark'
                 ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
                 : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
                 } ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}
         >
-            <div className="container mx-auto px-6 lg:px-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
-                    <div className={`text-center mb-16 transition-all duration-700 delay-200 ${isVisible ? 'animate-slideInDown' : 'opacity-0 -translate-y-10'
+                    <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 delay-200 ${isVisible ? 'animate-slideInDown' : 'opacity-0 -translate-y-10'
                         }`}>
-                        <div className={`inline-flex items-center px-4 py-2 border rounded-full text-sm font-medium mb-8 backdrop-blur-sm animate-pulse-glow ${theme === 'dark'
+                        <div className={`inline-flex items-center px-3 sm:px-4 py-2 border rounded-full text-xs sm:text-sm font-medium mb-6 sm:mb-8 backdrop-blur-sm animate-pulse-glow ${theme === 'dark'
                             ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400'
                             : 'bg-cyan-50 border-cyan-200 text-cyan-600'
                             }`}>
                             <span className="w-2 h-2 bg-cyan-400 rounded-full mr-2"></span>
                             My Work
                         </div>
-                        <h2 className={`text-4xl lg:text-6xl font-bold mb-6 leading-tight transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <h2 className={`text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
                             Featured
                             <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-400 bg-clip-text text-transparent pb-2">
                                 Projects
                             </span>
                         </h2>
-                        <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                        <p className={`text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 px-4 sm:px-0 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
                             }`}>
                             A collection of projects I&apos;ve built using modern technologies like React, Angular, and Next.js.
                             Each project demonstrates my skills in creating user-friendly, responsive web applications.
                         </p>
 
                         {/* Privacy Note */}
-                        <div className={`mt-6 p-4 rounded-lg border-l-4 border-amber-500 max-w-3xl mx-auto ${theme === 'dark'
+                        <div className={`mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg border-l-4 border-amber-500 max-w-3xl mx-auto ${theme === 'dark'
                             ? 'bg-amber-900/20 border-amber-500/50'
                             : 'bg-amber-50 border-amber-500'
                             }`}>
-                            <p className={`text-sm italic flex items-center transition-colors duration-300 ${theme === 'dark' ? 'text-amber-200' : 'text-amber-700'
+                            <p className={`text-xs sm:text-sm italic flex items-center transition-colors duration-300 ${theme === 'dark' ? 'text-amber-200' : 'text-amber-700'
                                 }`}>
                                 <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
@@ -191,13 +205,13 @@ export default function Projects() {
                     </div>
 
                     {/* Filter Categories */}
-                    <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-700 delay-400 ${isVisible ? 'animate-slideInLeft' : 'opacity-0 -translate-x-10'
+                    <div className={`flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 transition-all duration-700 delay-400 ${isVisible ? 'animate-slideInLeft' : 'opacity-0 -translate-x-10'
                         }`}>
                         {categories.map((category) => (
                             <button
                                 key={category.id}
                                 onClick={() => setActiveCategory(category.id)}
-                                className={`cursor-pointer px-6 py-3 rounded-full font-medium transition-all duration-300 hover:animate-bounceSubtle ${activeCategory === category.id
+                                className={`cursor-pointer px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 hover:animate-bounceSubtle ${activeCategory === category.id
                                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25 animate-glow'
                                     : (theme === 'dark'
                                         ? 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white border border-slate-700/50'
@@ -206,13 +220,13 @@ export default function Projects() {
                                     }`}
                             >
                                 {category.name}
-                                <span className="ml-2 text-sm opacity-75">({category.count})</span>
+                                <span className="ml-1 sm:ml-2 text-xs sm:text-sm opacity-75">({category.count})</span>
                             </button>
                         ))}
                     </div>
 
                     {/* Projects Grid */}
-                    <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 delay-600 ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 transition-all duration-700 delay-600 ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'
                         }`}>
                         {filteredProjects.map((project, index) => (
                             <div
