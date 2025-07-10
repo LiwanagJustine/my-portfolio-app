@@ -110,7 +110,7 @@ export default function Skills() {
                         <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
                             }`}>
                             A comprehensive overview of my technical skills, tools, and expertise in modern web development.
-                            I'm constantly learning and staying up-to-date with the latest technologies.
+                            I&apos;m constantly learning and staying up-to-date with the latest technologies.
                         </p>
                     </div>
 
@@ -153,7 +153,7 @@ export default function Skills() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {skillCategories[activeCategory].skills.map((skill: any, index: number) => (
+                            {skillCategories[activeCategory].skills.map((skill, index: number) => (
                                 <div
                                     key={skill.name}
                                     style={{ animationDelay: `${index * 100}ms` }}

@@ -47,8 +47,8 @@ export default function Footer() {
 
     return (
         <footer className={`border-t backdrop-blur-sm transition-colors duration-300 ${theme === 'dark'
-                ? 'bg-slate-950/95 border-slate-800/50'
-                : 'bg-white/95 border-gray-200/50'
+            ? 'bg-slate-950/95 border-slate-800/50'
+            : 'bg-white/95 border-gray-200/50'
             }`}>
             <div className="container mx-auto px-6 lg:px-8 py-12">
                 <div className="max-w-7xl mx-auto">
@@ -63,7 +63,7 @@ export default function Footer() {
                                 <p className={`text-sm leading-relaxed max-w-md transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
                                     }`}>
                                     Frontend Developer passionate about creating beautiful, functional, and user-friendly web applications.
-                                    Let's build something amazing together.
+                                    Let&apos;s build something amazing together.
                                 </p>
                             </div>
 
@@ -76,8 +76,8 @@ export default function Footer() {
                                         target={social.name !== "Email" && social.name !== "Phone" ? "_blank" : undefined}
                                         rel={social.name !== "Email" && social.name !== "Phone" ? "noopener noreferrer" : undefined}
                                         className={`w-10 h-10 border rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 ${theme === 'dark'
-                                                ? `bg-slate-800/50 border-slate-700/50 text-slate-400 ${social.color} hover:border-slate-600/50 hover:bg-slate-700/50`
-                                                : `bg-gray-100/50 border-gray-200/50 text-gray-500 ${social.color} hover:border-gray-300/50 hover:bg-gray-200/50`
+                                            ? `bg-slate-800/50 border-slate-700/50 text-slate-400 ${social.color} hover:border-slate-600/50 hover:bg-slate-700/50`
+                                            : `bg-gray-100/50 border-gray-200/50 text-gray-500 ${social.color} hover:border-gray-300/50 hover:bg-gray-200/50`
                                             }`}
                                         title={social.name}
                                     >
@@ -97,8 +97,8 @@ export default function Footer() {
                                         key={index}
                                         href={link.href}
                                         className={`block transition-colors duration-300 text-sm ${theme === 'dark'
-                                                ? 'text-slate-400 hover:text-white'
-                                                : 'text-gray-600 hover:text-gray-900'
+                                            ? 'text-slate-400 hover:text-white'
+                                            : 'text-gray-600 hover:text-gray-900'
                                             }`}
                                     >
                                         {link.name}
@@ -145,8 +145,8 @@ export default function Footer() {
                             <button
                                 onClick={scrollToTop}
                                 className={`flex items-center space-x-2 transition-colors duration-300 text-sm group ${theme === 'dark'
-                                        ? 'text-slate-400 hover:text-white'
-                                        : 'text-gray-600 hover:text-gray-900'
+                                    ? 'text-slate-400 hover:text-white'
+                                    : 'text-gray-600 hover:text-gray-900'
                                     }`}
                             >
                                 <span>Back to Top</span>

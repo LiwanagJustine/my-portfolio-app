@@ -288,8 +288,8 @@ export default function Projects() {
                             </h3>
                             <p className={`mb-6 transition-colors duration-300 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
                                 }`}>
-                                I'm always open to discussing new opportunities and exciting projects.
-                                Let's create something amazing together!
+                                I&apos;m always open to discussing new opportunities and exciting projects.
+                                Let&apos;s create something amazing together!
                             </p>
                             <button
                                 onClick={() => {
