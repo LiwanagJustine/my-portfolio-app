@@ -367,3 +367,33 @@ button, a, .interactive {
         animation-duration: 0.4s; /* Faster animations on mobile */
     }
 }
+
+/* Iframe fallback handling */
+.iframe-fallback {
+    pointer-events: none;
+}
+
+iframe {
+    display: block;
+}
+
+/* Show fallback when iframe fails to load */
+iframe:not([src]) + .iframe-fallback,
+iframe[src=""] + .iframe-fallback {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Additional iframe security and compatibility */
+iframe[src*="google.com/maps"] {
+    max-width: 100%;
+    height: auto;
+    min-height: 300px;
+}
+
+/* Ensure iframe loads properly */
+@media (max-width: 768px) {
+    iframe[src*="google.com/maps"] {
+        min-height: 250px;
+    }
+}

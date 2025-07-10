@@ -17,6 +17,8 @@ export default function Contact() {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [isVisible, setIsVisible] = useState(false);
     const [animatedInputs, setAnimatedInputs] = useState<Set<string>>(new Set());
+    const [mapLoaded, setMapLoaded] = useState(false);
+    const [mapError, setMapError] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const sectionRef = useRef<HTMLElement>(null);
     const { theme } = useTheme();
@@ -450,19 +452,60 @@ export default function Contact() {
                                     Find Me Here
                                 </h3>
 
-                                {/* Map Container */}
                                 <div className={`relative rounded-2xl overflow-hidden border ${theme === 'dark' ? 'border-slate-600/50' : 'border-gray-300/50'
                                     }`}>
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7712.208589375982!2d120.77601846708724!3d14.875445442336911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396513f1bf09655%3A0xf5be7b26d11bb5cf!2sLongos%2C%20Calumpit%2C%20Bulacan!5e0!3m2!1sen!2sph!4v1751986120195!5m2!1sen!2sph"
-                                        width="100%"
-                                        height="300"
-                                        style={{ border: 0 }}
-                                        allowFullScreen
-                                        loading="lazy"
-                                        referrerPolicy="no-referrer-when-downgrade"
-                                        className="filter grayscale hover:grayscale-0 transition-all duration-500"
-                                    />
+                                    <div className="relative">
+                                        {!mapError && (
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7712.208589375982!2d120.77601846708724!3d14.875445442336911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396513f1bf09655%3A0xf5be7b26d11bb5cf!2sLongos%2C%20Calumpit%2C%20Bulacan!5e0!3m2!1sen!2sph!4v1751986120195!5m2!1sen!2sph"
+                                                width="100%"
+                                                height="300"
+                                                style={{ border: 0 }}
+                                                allowFullScreen
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                                className="filter grayscale hover:grayscale-0 transition-all duration-500"
+                                                title="Google Maps - Longos, Calumpit, Bulacan"
+                                                onLoad={() => setMapLoaded(true)}
+                                                onError={() => setMapError(true)}
+                                            />
+                                        )}
+                                        {/* Fallback content - always show if mapError is true, or if map hasn't loaded yet */}
+                                        {(mapError || !mapLoaded) && (
+                                            <div className={`${mapError ? 'relative' : 'absolute inset-0'} flex items-center justify-center ${theme === 'dark'
+                                                ? 'bg-gradient-to-br from-slate-700 to-slate-800'
+                                                : 'bg-gradient-to-br from-gray-200 to-gray-300'
+                                                } ${mapError ? 'min-h-[300px]' : ''} transition-opacity duration-500`}>
+                                                <div className="text-center p-8">
+                                                    <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${theme === 'dark'
+                                                        ? 'bg-slate-600/50'
+                                                        : 'bg-gray-300/50'
+                                                        }`}>
+                                                        <svg className={`w-8 h-8 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </div>
+                                                    <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-slate-300' : 'text-gray-700'}`}>
+                                                        {mapError ? 'Map Location' : 'Loading Map...'}
+                                                    </h4>
+                                                    <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-600'}`}>
+                                                        Longos, Calumpit, Bulacan, Philippines
+                                                    </p>
+                                                    <a
+                                                        href="https://maps.google.com/maps?q=Longos,+Calumpit,+Bulacan,+Philippines"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-cyan-700 transition-all duration-300"
+                                                    >
+                                                        <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM10 18a8 8 0 100-16 8 8 0 000 16z" />
+                                                        </svg>
+                                                        View on Google Maps
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className={`mt-6 p-4 rounded-xl border ${theme === 'dark'
