@@ -34,7 +34,7 @@ export default function Skills() {
             title: "Frontend Development",
             icon: "🎨",
             skills: [
-                { name: "React", level: 80, color: "from-blue-400 to-blue-600", years: "2+" },
+                { name: "React", level: 80, color: "from-blue-400 to-blue-600", years: "1+" },
                 { name: "Angular", level: 85, color: "from-red-400 to-red-600", years: "2+" },
                 { name: "Next.js", level: 80, color: "from-gray-700 to-gray-900", years: "1+" },
                 { name: "TypeScript", level: 85, color: "from-blue-500 to-blue-700", years: "2+" },
@@ -50,12 +50,10 @@ export default function Skills() {
             skills: [
                 { name: "Git & GitHub", level: 85, color: "from-gray-600 to-gray-800", years: "2+" },
                 { name: "VS Code", level: 95, color: "from-blue-500 to-blue-700", years: "2+" },
-                { name: "Figma", level: 75, color: "from-purple-400 to-purple-600", years: "1+" },
-                { name: "Webpack", level: 70, color: "from-blue-600 to-blue-800", years: "1+" },
                 { name: "Vite", level: 80, color: "from-purple-500 to-purple-700", years: "1+" },
-                { name: "npm/yarn", level: 85, color: "from-red-500 to-red-700", years: "2+" },
+                { name: "npm", level: 85, color: "from-red-500 to-red-700", years: "2+" },
                 { name: "Chrome DevTools", level: 90, color: "from-green-400 to-green-600", years: "2+" },
-                { name: "Postman", level: 75, color: "from-orange-400 to-orange-600", years: "1+" }
+                { name: "Postman", level: 75, color: "from-orange-400 to-orange-600", years: "2+" }
             ]
         },
         concepts: {
@@ -67,9 +65,7 @@ export default function Skills() {
                 { name: "State Management", level: 85, color: "from-purple-400 to-purple-600", years: "1+" },
                 { name: "API Integration", level: 80, color: "from-cyan-400 to-cyan-600", years: "1+" },
                 { name: "Performance Optimization", level: 75, color: "from-green-400 to-green-600", years: "1+" },
-                { name: "Cross-browser Compatibility", level: 85, color: "from-orange-400 to-orange-600", years: "2+" },
-                { name: "Accessibility (a11y)", level: 78, color: "from-indigo-400 to-indigo-600", years: "1+" },
-                { name: "Version Control", level: 88, color: "from-gray-500 to-gray-700", years: "2+" }
+                { name: "Accessibility", level: 78, color: "from-indigo-400 to-indigo-600", years: "1+" },
             ]
         }
     };
@@ -88,8 +84,8 @@ export default function Skills() {
             ref={sectionRef}
             id="skills"
             className={`min-h-screen py-20 transition-all duration-1000 ${theme === 'dark'
-                    ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
-                    : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+                ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
+                : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
                 } ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}
         >
             <div className="container mx-auto px-6 lg:px-8">
@@ -98,8 +94,8 @@ export default function Skills() {
                     <div className={`text-center mb-16 transition-all duration-700 delay-200 ${isVisible ? 'animate-slideInDown' : 'opacity-0 -translate-y-10'
                         }`}>
                         <div className={`inline-flex items-center px-4 py-2 border rounded-full text-sm font-medium mb-8 backdrop-blur-sm animate-pulse-glow ${theme === 'dark'
-                                ? 'bg-green-500/10 border-green-500/20 text-green-400'
-                                : 'bg-green-50 border-green-200 text-green-600'
+                            ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                            : 'bg-green-50 border-green-200 text-green-600'
                             }`}>
                             <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
                             Technical Expertise
@@ -141,8 +137,8 @@ export default function Skills() {
 
                     {/* Skills Grid */}
                     <div className={`backdrop-blur-sm border rounded-3xl p-8 lg:p-12 transition-all duration-700 delay-600 ${theme === 'dark'
-                            ? 'bg-slate-800/30 border-slate-700/50'
-                            : 'bg-white/80 border-gray-200/50'
+                        ? 'bg-slate-800/30 border-slate-700/50'
+                        : 'bg-white/80 border-gray-200/50'
                         } ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'}`}>
                         <div className="mb-8">
                             <h3 className={`text-3xl font-bold mb-2 flex items-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
@@ -162,8 +158,8 @@ export default function Skills() {
                                     key={skill.name}
                                     style={{ animationDelay: `${index * 100}ms` }}
                                     className={`group border rounded-2xl p-6 transition-all duration-300 hover:transform hover:scale-[1.02] ${theme === 'dark'
-                                            ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50 hover:shadow-lg hover:shadow-green-500/20'
-                                            : 'bg-white/80 border-gray-200/50 hover:border-gray-300/50 hover:shadow-lg hover:shadow-green-500/10'
+                                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50 hover:shadow-lg hover:shadow-green-500/20'
+                                        : 'bg-white/80 border-gray-200/50 hover:border-gray-300/50 hover:shadow-lg hover:shadow-green-500/10'
                                         } ${isVisible ? 'animate-staggerFadeIn' : 'opacity-0'} hover:animate-hoverFloat`}
                                 >
                                     <div className="flex items-center justify-between mb-4">
@@ -173,8 +169,8 @@ export default function Skills() {
                                                 {skill.name}
                                             </h4>
                                             <span className={`text-xs px-2 py-1 rounded-full group-hover:animate-bounceSubtle ${theme === 'dark'
-                                                    ? 'text-slate-400 bg-slate-700/50'
-                                                    : 'text-gray-500 bg-gray-100/50'
+                                                ? 'text-slate-400 bg-slate-700/50'
+                                                : 'text-gray-500 bg-gray-100/50'
                                                 }`}>
                                                 {skill.years}
                                             </span>
@@ -213,8 +209,8 @@ export default function Skills() {
                     <div className={`mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-700 delay-800 ${isVisible ? 'animate-slideInUp' : 'opacity-0 translate-y-10'
                         }`}>
                         <div className={`text-center backdrop-blur-sm border rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer ${theme === 'dark'
-                                ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-blue-500/20'
-                                : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-blue-500/10'
+                            ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-blue-500/20'
+                            : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-blue-500/10'
                             }`}>
                             <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce">
                                 <span className="text-2xl">⚡</span>
@@ -228,8 +224,8 @@ export default function Skills() {
                         </div>
 
                         <div className={`text-center backdrop-blur-sm border rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer ${theme === 'dark'
-                                ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-green-500/20'
-                                : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-green-500/10'
+                            ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-green-500/20'
+                            : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-green-500/10'
                             }`}>
                             <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce" style={{ animationDelay: '200ms' }}>
                                 <span className="text-2xl">🎯</span>
@@ -243,8 +239,8 @@ export default function Skills() {
                         </div>
 
                         <div className={`text-center backdrop-blur-sm border rounded-2xl p-8 hover:animate-hoverFloat transition-all duration-300 cursor-pointer ${theme === 'dark'
-                                ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-purple-500/20'
-                                : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-purple-500/10'
+                            ? 'bg-slate-800/30 border-slate-700/50 hover:shadow-lg hover:shadow-purple-500/20'
+                            : 'bg-white/80 border-gray-200/50 hover:shadow-lg hover:shadow-purple-500/10'
                             }`}>
                             <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce" style={{ animationDelay: '400ms' }}>
                                 <span className="text-2xl">🚀</span>
