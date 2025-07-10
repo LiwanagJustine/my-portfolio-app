@@ -17,9 +17,13 @@ export default function Skills() {
                     setIsVisible(true);
                     // Trigger progress bar animations after section becomes visible
                     setTimeout(() => setProgressAnimated(true), 800);
+                } else {
+                    // Reset animations when element leaves viewport
+                    setIsVisible(false);
+                    setProgressAnimated(false);
                 }
             },
-            { threshold: 0.2 }
+            { threshold: 0.2, rootMargin: '50px' }
         );
 
         if (sectionRef.current) {

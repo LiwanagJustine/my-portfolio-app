@@ -15,6 +15,8 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [isScrolling, setIsScrolling] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
+    const [scrollProgress, setScrollProgress] = useState(0);
+    const [isClient, setIsClient] = useState(false);
     const { theme } = useTheme();
 
     const handleLoadingComplete = () => {
@@ -32,16 +34,43 @@ export default function Home() {
                 block: 'start'
             });
 
+            // Reset scroll progress after navigation completes
             setTimeout(() => {
                 setIsScrolling(false);
+                // Recalculate scroll progress after smooth scroll completes
+                setTimeout(() => {
+                    if (typeof window !== 'undefined') {
+                        const scrollTop = window.scrollY;
+                        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                        setScrollProgress(Math.min(100, Math.max(0, progress)));
+                    }
+                }, 100);
             }, 1000);
         }
     };
 
     useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    useEffect(() => {
+        const updateScrollProgress = () => {
+            if (typeof window !== 'undefined') {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                setScrollProgress(Math.min(100, Math.max(0, progress)));
+            }
+        };
+
         const handleScroll = () => {
             if (isScrolling) return;
 
+            // Update scroll progress
+            updateScrollProgress();
+
+            // Update active section
             const sections = ['home', 'about', 'projects', 'skills', 'contact'];
             const scrollPosition = window.scrollY + 100;
 
@@ -59,9 +88,19 @@ export default function Home() {
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [isScrolling]);
+        if (isClient) {
+            updateScrollProgress(); // Initial calculation
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', updateScrollProgress);
+        }
+
+        return () => {
+            if (isClient) {
+                window.removeEventListener('scroll', handleScroll);
+                window.removeEventListener('resize', updateScrollProgress);
+            }
+        };
+    }, [isScrolling, isClient]);
 
     return (
         <>
@@ -70,20 +109,22 @@ export default function Home() {
 
             {/* Main Content */}
             <div className={`transition-all duration-1000 ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                {/* Scroll Progress Indicator */}
-                <div
-                    className="scroll-indicator"
-                    style={{
-                        width: `${typeof window !== 'undefined' ? (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 : 0}%`
-                    }}
-                />
+                {/* Scroll Progress Indicator - Only render on client */}
+                {isClient && (
+                    <div
+                        className="scroll-indicator"
+                        style={{
+                            width: `${scrollProgress}%`
+                        }}
+                    />
+                )}
 
                 {/* Navigation Transition Overlay */}
                 <div className={`nav-transition ${isScrolling ? 'active' : ''}`} />
 
                 <div className={`min-h-screen transition-colors duration-500 overflow-hidden ${theme === 'dark'
-                        ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800'
-                        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+                    ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800'
+                    : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
                     }`}>
                     <Header scrollToSection={scrollToSection} activeSection={activeSection} />
                     <section id="home" className="container mx-auto px-6 lg:px-8 transition-all duration-500 ease-in-out">
@@ -93,8 +134,8 @@ export default function Home() {
                                 <div className="max-w-2xl">
                                     {/* Hero Badge */}
                                     <div className={`inline-flex items-center px-4 py-2 border rounded-full text-sm font-medium mb-8 backdrop-blur-sm transition-colors duration-300 ${theme === 'dark'
-                                            ? 'bg-blue-500/10 border-blue-500/20 text-blue-400'
-                                            : 'bg-blue-50 border-blue-200 text-blue-600'
+                                        ? 'bg-blue-500/10 border-blue-500/20 text-blue-400'
+                                        : 'bg-blue-50 border-blue-200 text-blue-600'
                                         }`}>
                                         <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                                         Available for new opportunities
@@ -153,8 +194,8 @@ export default function Home() {
                                         <button
                                             onClick={() => scrollToSection('contact')}
                                             className={`cursor-pointer px-8 py-4 border-2 font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 ${theme === 'dark'
-                                                    ? 'border-slate-600 hover:border-slate-500 text-slate-300 hover:text-white hover:bg-slate-800/50'
-                                                    : 'border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                                                ? 'border-slate-600 hover:border-slate-500 text-slate-300 hover:text-white hover:bg-slate-800/50'
+                                                : 'border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                                                 }`}
                                         >
                                             Get In Touch

@@ -36,9 +36,12 @@ export default function Contact() {
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
+                } else {
+                    // Reset animation when element leaves viewport
+                    setIsVisible(false);
                 }
             },
-            { threshold: 0.2 }
+            { threshold: 0.2, rootMargin: '50px' }
         );
 
         if (sectionRef.current) {
@@ -190,13 +193,13 @@ export default function Contact() {
         <section
             ref={sectionRef}
             id="contact"
-            className={`min-h-screen py-20 transition-all duration-1000 ${theme === 'dark'
+            className={`min-h-screen py-20 transition-all duration-1000 w-full ${theme === 'dark'
                 ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
                 : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
                 } ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}
         >
-            <div className="container mx-auto px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
+            <div className="w-full px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto w-full">
                     {/* Section Header */}
                     <div className={`text-center mb-16 transition-all duration-700 delay-200 ${isVisible ? 'animate-slideInDown' : 'opacity-0 -translate-y-10'
                         }`}>

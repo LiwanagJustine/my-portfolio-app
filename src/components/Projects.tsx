@@ -16,9 +16,12 @@ export default function Projects() {
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
+                } else {
+                    // Reset animation when element leaves viewport
+                    setIsVisible(false);
                 }
             },
-            { threshold: 0.2 }
+            { threshold: 0.2, rootMargin: '50px' }
         );
 
         if (sectionRef.current) {

@@ -34,19 +34,22 @@ export default function Header({ scrollToSection, activeSection }: HeaderProps) 
 
     return (
         <header className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300 ${theme === 'dark'
-                ? 'bg-slate-950/80 border-slate-800/50'
-                : 'bg-white/80 border-gray-200/50'
+            ? 'bg-slate-950/80 border-slate-800/50'
+            : 'bg-white/80 border-gray-200/50'
             }`}>
             <div className="container mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <div className="flex items-center space-x-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <button
+                        onClick={() => handleNavClick('home')}
+                        className="flex items-center space-x-2 cursor-pointer group transition-all duration-300 hover:scale-105"
+                    >
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
                             <span className="text-white font-bold text-sm">JL</span>
                         </div>
-                        <span className={`font-semibold text-lg transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <span className={`font-semibold text-lg transition-colors duration-300 ${theme === 'dark' ? 'text-white group-hover:text-blue-400' : 'text-gray-900 group-hover:text-blue-600'
                             }`}>Justine Liwanag</span>
-                    </div>                    {/* Desktop Navigation */}
+                    </button>                    {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center space-x-8">
                         <button
                             onClick={() => handleNavClick('home')}
@@ -121,8 +124,8 @@ export default function Header({ scrollToSection, activeSection }: HeaderProps) 
                         <button
                             onClick={toggleTheme}
                             className={`p-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${theme === 'dark'
-                                    ? 'bg-slate-800/50 hover:bg-slate-700/50 text-yellow-400'
-                                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                ? 'bg-slate-800/50 hover:bg-slate-700/50 text-yellow-400'
+                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                                 }`}
                             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                         >
