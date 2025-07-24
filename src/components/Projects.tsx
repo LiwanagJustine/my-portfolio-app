@@ -72,10 +72,10 @@ export default function Projects() {
             id: 1,
             title: "E-Commerce Dashboard",
             description: "Modern admin dashboard for e-commerce platform with real-time analytics, inventory management, and order tracking.",
-            image: null,
+            image: "/images/project/plantshop.png",
             category: "nextjs",
-            technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
-            featured: false
+            technologies: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Node.js", "JsonWebTokens"],
+            featured: true
         },
         {
             id: 2,
