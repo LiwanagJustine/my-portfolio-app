@@ -127,6 +127,16 @@ export default function Footer() {
                                     <span className={`text-sm transition-colors duration-300 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-600'
                                         }`}>Longos, Calumpit, Bulacan</span>
                                 </div>
+                                <div className="flex items-center space-x-3">
+                                    <a
+                                        href="/docs/Justine-Liwanag-CV.pdf"
+                                        download
+                                        className="cursor-pointer px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow hover:scale-105 transition"
+                                    >
+                                        Download CV (PDF)
+                                    </a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
