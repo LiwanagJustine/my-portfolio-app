@@ -22,7 +22,7 @@ export default function Footer() {
         {
             name: "Email",
             icon: "📧",
-            url: "mailto:justine.liwanag@gmail.com",
+            url: "mailto:justine.t.liwanag@gmail.com",
             color: "hover:text-pink-400"
         },
         {
@@ -115,7 +115,7 @@ export default function Footer() {
                                 <div className="flex items-center space-x-3">
                                     <span className="text-pink-400">📧</span>
                                     <span className={`text-sm transition-colors duration-300 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-600'
-                                        }`}>justine.liwanag@gmail.com</span>
+                                        }`}>justine.t.liwanag@gmail.com</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <span className="text-green-400">📱</span>
