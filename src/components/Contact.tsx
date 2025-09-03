@@ -186,8 +186,8 @@ export default function Contact() {
         {
             icon: "📧",
             title: "Email",
-            value: "justine.liwanag@email.com",
-            link: "mailto:justine.liwanag@gmail.com"
+            value: "justine.t.liwanag@gmail.com",
+            link: "mailto:justine.t.liwanag@gmail.com"
         },
         {
             icon: "📱",
